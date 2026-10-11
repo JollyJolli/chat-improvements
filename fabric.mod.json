@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "chatimprovements",
+  "version": "${version}",
+  "name": "Chat Improvements",
+  "description": "A lightweight, client-side upgrade to Minecraft chat.",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["io.github.jollyjolli.chatimprovements.ChatImprovementsClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "license": "MIT",
+  "contact": {
+    "sources": "https://github.com/JollyJolli/chat-improvements",
+    "issues": "https://github.com/JollyJolli/chat-improvements/issues"
+  }
+}

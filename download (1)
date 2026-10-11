@@ -1,0 +1,18 @@
+# Gradle / Java
+.gradle/
+build/
+out/
+*.class
+*.log
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Run directory (may contain private chat history and world data)
+run/
