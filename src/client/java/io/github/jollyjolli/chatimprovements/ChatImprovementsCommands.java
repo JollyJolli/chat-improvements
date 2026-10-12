@@ -17,7 +17,8 @@ public final class ChatImprovementsCommands {
                                 "Chat Improvements: timestamps " + (config.timestampsEnabled ? "ON" : "OFF")
                                 + ", " + (config.twentyFourHour ? "24h" : "12h")
                                 + ", seconds " + (config.showSeconds ? "ON" : "OFF")
-                                + ". Use /chatimprovements timestamps, format, seconds, or reload."));
+                                + ", mentions " + (config.mentionHighlightsEnabled ? "ON" : "OFF")
+                                + ". Use timestamps, format, seconds, mentions or reload."));
                         return 1;
                     })
                     .then(ClientCommands.literal("timestamps")
@@ -57,6 +58,19 @@ public final class ChatImprovementsCommands {
                                 ChatImprovementsConfig.get().showSeconds = false;
                                 ChatImprovementsConfig.save();
                                 context.getSource().sendFeedback(Component.literal("Timestamp seconds disabled."));
+                                return 1;
+                            })))
+                    .then(ClientCommands.literal("mentions")
+                            .then(ClientCommands.literal("on").executes(context -> {
+                                ChatImprovementsConfig.get().mentionHighlightsEnabled = true;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal("Mention marker enabled for new messages."));
+                                return 1;
+                            }))
+                            .then(ClientCommands.literal("off").executes(context -> {
+                                ChatImprovementsConfig.get().mentionHighlightsEnabled = false;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal("Mention marker disabled for new messages."));
                                 return 1;
                             })))
                     .then(ClientCommands.literal("reload").executes(context -> {

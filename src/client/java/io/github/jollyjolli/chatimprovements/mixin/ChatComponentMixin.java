@@ -1,6 +1,7 @@
 package io.github.jollyjolli.chatimprovements.mixin;
 
 import io.github.jollyjolli.chatimprovements.TimestampDecorator;
+import io.github.jollyjolli.chatimprovements.MentionDecorator;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,6 +23,6 @@ public abstract class ChatComponentMixin {
             ordinal = 0
     )
     private Component chatimprovements$decorateIncomingMessage(Component message) {
-        return TimestampDecorator.decorate(message);
+        return TimestampDecorator.decorate(MentionDecorator.decorate(message));
     }
 }

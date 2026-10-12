@@ -20,6 +20,7 @@ public final class ChatImprovementsConfig {
     public boolean timestampsEnabled = true;
     public boolean twentyFourHour = true;
     public boolean showSeconds = false;
+    public boolean mentionHighlightsEnabled = false;
 
     public static ChatImprovementsConfig get() {
         return current;
