@@ -48,7 +48,7 @@ Preferences are saved locally at `config/chatimprovements.json`. Changing settin
 
 ## Build
 
-The CI workflow installs Java 25 and Gradle 9.5.1 and runs `gradle build`; finished jars are uploaded as workflow artifacts. For local development use JDK 25 and Gradle 9.5.1. Verify dependency updates against [Fabric's official example mod](https://github.com/FabricMC/fabric-example-mod/tree/26.2).
+The CI workflow installs Java 25 and Gradle 9.7.1 and runs `gradle build`; finished jars are uploaded as workflow artifacts. For local development use JDK 25 and Gradle 9.7.1. Verify dependency updates against [Fabric's official example mod](https://github.com/FabricMC/fabric-example-mod/tree/26.2).
 
 ## Code & credits
 
