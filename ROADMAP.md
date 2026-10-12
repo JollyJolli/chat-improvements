@@ -1,46 +1,29 @@
-# Product plan — Chat Improvements
+# Chat Improvements roadmap
 
-## Product principles
+## v0.1 — Timestamp beta
+- [x] Standard client-only Fabric source layout
+- [x] Configurable chat timestamps, 12h/24h formats, seconds optional
+- [x] Client commands and locally saved preferences
+- [ ] CI green for feature branch
+- [ ] Validate singleplayer and Paper 26.2 in game
+- [ ] Verify styling, links, hover events, signatures, long messages, and HUD resizing
 
-- The game view stays almost vanilla; expanded interactions appear only when the chat screen is open.
-- Client-side only: no server-side components and no unfair interaction automation.
-- Clear defaults, readable settings, accessibility and performance first.
+## v0.2 — Player heads
+- [ ] Investigate signed sender identity, skin manager APIs and profile lookups
+- [ ] Render sender heads without false attribution to system/translated messages
+- [ ] Handle offline skins and nicknames gracefully
+- [ ] Avoid synchronous HTTP or skin fetching on render thread
 
-## Milestone 0 — Build and integration
+## v0.3 — Chat presentation
+- [ ] Compact vanilla-like closed chat
+- [ ] Expanded tools when chat opened
+- [ ] Optional copy actions
+- [ ] Settings GUI with per-feature switches
 
-- [ ] Java 25 / Fabric 26.2 development environment
-- [ ] Trusted Gradle wrapper committed
-- [ ] CI build green
-- [ ] Confirm mod initializes with only a log message
-- [ ] Test local singleplayer and vanilla/Paper server connection
+## Longer-term
+- [ ] Mentions and smart focus (opt-in)
+- [ ] Local search and saved messages (privacy-first, opt-in)
+- [ ] Compatibility checks with popular chat mods
+- [ ] In-game validation and original creative contributions before Modrinth review
 
-## Milestone 1 — Timestamps
-
-- [ ] Optional local timestamp for received messages (off-by-default during early testing)
-- [ ] Configurable 12/24h time format
-- [ ] Distinguish system messages where practical
-- [ ] Preserve rich text formatting and signed chat authenticity
-- [ ] Verify messages with hover/click actions and line wrapping
-
-## Milestone 2 — Player heads
-
-- [ ] Resolve verified sender identities where available
-- [ ] Fallback for console/system/custom server chat
-- [ ] Avoid skin loading on the render thread
-- [ ] Graceful layout for wrapped lines and chat scaling
-
-## Milestone 3 — Expanded chat UI
-
-- [ ] Search recent in-memory messages (configurable limit)
-- [ ] Copy text without altering messages
-- [ ] Local message bookmarks (opt-in persistence)
-- [ ] Keyboard navigation and accessibility
-- [ ] Per-server settings
-
-## Out of scope for v0.1
-
-- Social network features, server-side chat channels, player impersonation, read receipts, cloud backups, native translation services, invasive HUD replacement.
-
-## Definition of done for a feature
-
-Compiles, game-tested, has an off switch, documented, no client crash on vanilla/Paper, no silent changes to signed messages, and no known severe compatibility regressions.
+Keep implementations client-side, lightweight, reviewable and respectful of signed chat.
