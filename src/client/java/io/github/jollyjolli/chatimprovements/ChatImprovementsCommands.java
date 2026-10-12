@@ -17,7 +17,8 @@ public final class ChatImprovementsCommands {
                                 "Chat Improvements: timestamps " + (config.timestampsEnabled ? "ON" : "OFF")
                                 + ", " + (config.twentyFourHour ? "24h" : "12h")
                                 + ", seconds " + (config.showSeconds ? "ON" : "OFF")
-                                + ". Use /chatimprovements timestamps, format, seconds, or reload."));
+                                + ", copy buttons " + (config.copyButtonsEnabled ? "ON" : "OFF")
+                                + ". Use /chatimprovements copy, timestamps, format, seconds or reload."));
                         return 1;
                     })
                     .then(ClientCommands.literal("timestamps")
@@ -57,6 +58,19 @@ public final class ChatImprovementsCommands {
                                 ChatImprovementsConfig.get().showSeconds = false;
                                 ChatImprovementsConfig.save();
                                 context.getSource().sendFeedback(Component.literal("Timestamp seconds disabled."));
+                                return 1;
+                            })))
+                    .then(ClientCommands.literal("copy")
+                            .then(ClientCommands.literal("on").executes(context -> {
+                                ChatImprovementsConfig.get().copyButtonsEnabled = true;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal("Copy buttons enabled for new chat messages."));
+                                return 1;
+                            }))
+                            .then(ClientCommands.literal("off").executes(context -> {
+                                ChatImprovementsConfig.get().copyButtonsEnabled = false;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal("Copy buttons disabled for new chat messages."));
                                 return 1;
                             })))
                     .then(ClientCommands.literal("reload").executes(context -> {
