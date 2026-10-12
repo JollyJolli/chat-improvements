@@ -22,6 +22,8 @@ public final class ChatImprovementsConfig {
     public boolean showSeconds = false;
     public boolean playerHeadsEnabled = true;
     public boolean showHatLayer = true;
+    /** Optional, unverified fallback for plugin-formatted server system chat. */
+    public boolean systemHeadFallback = false;
 
     public static ChatImprovementsConfig get() {
         return current;

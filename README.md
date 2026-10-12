@@ -2,7 +2,7 @@
 
 **A lightweight, client-side Minecraft Fabric mod that improves chat without changing how the server works.**
 
-> **v0.2.0-beta.1 test build.** Timestamps are proven to appear in actual multiplayer gameplay. Player heads are new and have not yet passed in-game testing. Build success is not runtime proof.
+> **v0.2.0-beta.2 test build.** Timestamps are proven to appear in actual multiplayer gameplay. Player heads are new and have not yet passed in-game testing. Build success is not runtime proof.
 
 ## Features
 
@@ -16,7 +16,10 @@
 - Can toggle heads and the skin's outer "hat" layer independently.
 - Uses the sender's UUID/profile provided by the game; **does not** guess names from formatted messages.
 - Does not attach heads to system messages, fake server messages or chat whose sender cannot be reliably identified.
-- **Important:** servers that route chat through plugins as system messages may show NO heads for those lines. This is intentional in this initial safety-first beta.
+- **Important:** servers that route chat through plugins as system messages may show NO heads by default.
+- Experimental **opt-in** system-chat fallback: `/chatimprovements compatibility on`. Recognizes `<ExactMinecraftUsername> message` **only when the username is in the client's known player list**.
+- System-chat fallback names are **unverified**, can be spoofed, and may show the wrong skin. It is **OFF by default**. Avoid using it where impersonation is a concern; it never indicates a signed identity.
+- Prefixes, nicknames, rank tags, proxies, and custom server templates are NOT generally supported by the fallback yet.
 - Keeps vanilla text components, message styling and signed message data intact; no network packets are changed.
 - The native Minecraft player-sprite is used rather than manually rendering skull textures.
 
@@ -30,6 +33,7 @@
 | `/chatimprovements seconds on/off` | Toggle timestamp seconds |
 | `/chatimprovements heads on/off` | Toggle player heads |
 | `/chatimprovements hats on/off` | Toggle outer hat layer |
+| `/chatimprovements compatibility on/off` | Opt in/out of unverified `<Name>` system-chat head fallback |
 | `/chatimprovements reload` | Reload config |
 
 Preferences are saved locally at `config/chatimprovements.json`. Existing visible chat lines are NOT retroactively changed by setting toggles. No chat log, server addresses, or telemetry are persisted.
@@ -45,7 +49,7 @@ Preferences are saved locally at `config/chatimprovements.json`. Existing visibl
 2. Download `chat-improvements-dev` artifact from a successful GitHub Actions run on the v0.2 PR.
 3. Extract **only** the non-`sources` jar and remove the previous beta jar from `mods` (do not keep two versions).
 4. Launch Fabric 26.2 in a test world and join a server with genuine player chat. Check both heads and timestamps.
-5. Try `/chatimprovements heads off`, `/chatimprovements heads on`, and `/chatimprovements hats off`.
+5. Test the strict default first; then test `/chatimprovements compatibility on` on a server with formatted system chat. Turn it back off to compare. Try `/chatimprovements heads off/on` and `/chatimprovements hats off`.
 6. If it fails to start, attach `.minecraft/crash-reports` text or the last part of `.minecraft/logs/latest.log` to an issue.
 
 **Do not publish the test JAR on Modrinth until real in-game testing and compliance checks pass.**

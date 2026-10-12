@@ -8,22 +8,17 @@
 - [ ] More testing: links, hover events, chat signatures, text wrapping, server switching
 
 ## v0.2 — Player heads
-- [x] Native Minecraft player sprite for known player profiles
+- [x] Native Minecraft player sprite for known signed-player profiles
 - [x] Add commands to toggle heads and outer layer
-- [x] Avoid pretending anonymous system messages have authenticated players
-- [ ] CI build validation
-- [ ] Test genuine player-signed chat in Fabric 26.2
-- [ ] Test on Paper with and without plugin-modified chat
-- [ ] Check duplicates with other head mods, wrapping, skin render, GUI scale
+- [x] Keep anonymous system chat separate from authenticated signed messages
+- [x] Optional unverified system-chat fallback for exact `<Username> text` messages whose names exist in player list
+- [ ] CI build validation for beta.2
+- [ ] Test actual multiplayer signed chat and the optional system fallback
+- [ ] Test username spoofing risk, Paper custom chat, nickname differences
+- [ ] Test other chat mods, long messages, GUI scaling and duplicate heads
 
 ## v0.3 — Chat presentation
-- [ ] Compact vanilla-like closed chat, expanded tools when opened
-- [ ] Copy messages
-- [ ] Accessible settings GUI
+- [ ] Compact vanilla-like closed chat; expanded tools when opened
+- [ ] Copy messages, controls GUI, accessible customization
 
-## Longer term
-- [ ] Optional safe sender detection for server-plugin chat with explicit opt-in
-- [ ] Search / saved messages with privacy controls
-- [ ] Chat compatibility and release readiness
-
-No network telemetry or automatic message history storage. Client only.
+Never present inferred system-chat identities as authenticated. No server-side installation or telemetry.

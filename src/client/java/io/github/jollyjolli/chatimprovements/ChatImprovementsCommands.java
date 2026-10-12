@@ -19,7 +19,8 @@ public final class ChatImprovementsCommands {
                                 + ", seconds " + (config.showSeconds ? "ON" : "OFF")
                                 + ", heads " + (config.playerHeadsEnabled ? "ON" : "OFF")
                                 + ", hats " + (config.showHatLayer ? "ON" : "OFF")
-                                + ". Use timestamps, format, seconds, heads, hats or reload."));
+                                + ", system fallback " + (config.systemHeadFallback ? "ON (unverified)" : "OFF")
+                                + ". Use timestamps, format, seconds, heads, hats, compatibility or reload."));
                         return 1;
                     })
                     .then(ClientCommands.literal("timestamps")
@@ -85,6 +86,21 @@ public final class ChatImprovementsCommands {
                                 ChatImprovementsConfig.get().showHatLayer = false;
                                 ChatImprovementsConfig.save();
                                 context.getSource().sendFeedback(Component.literal("Chat head hat layers disabled."));
+                                return 1;
+                            })))
+                    .then(ClientCommands.literal("compatibility")
+                            .then(ClientCommands.literal("on").executes(context -> {
+                                ChatImprovementsConfig.get().systemHeadFallback = true;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal(
+                                        "System-chat head guessing ON. Unverified: visible player names can be spoofed."));
+                                return 1;
+                            }))
+                            .then(ClientCommands.literal("off").executes(context -> {
+                                ChatImprovementsConfig.get().systemHeadFallback = false;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal(
+                                        "System-chat head guessing OFF. Only identified player chat gets heads."));
                                 return 1;
                             })))
                     .then(ClientCommands.literal("reload").executes(context -> {
