@@ -3,27 +3,27 @@
 ## v0.1 — Timestamp beta
 - [x] Standard client-only Fabric source layout
 - [x] Configurable chat timestamps, 12h/24h formats, seconds optional
-- [x] Client commands and locally saved preferences
-- [ ] CI green for feature branch
-- [ ] Validate singleplayer and Paper 26.2 in game
-- [ ] Verify styling, links, hover events, signatures, long messages, and HUD resizing
+- [x] CI green
+- [x] Verified visible timestamps in a real multiplayer screenshot
+- [ ] More testing: links, hover events, chat signatures, text wrapping, server switching
 
 ## v0.2 — Player heads
-- [ ] Investigate signed sender identity, skin manager APIs and profile lookups
-- [ ] Render sender heads without false attribution to system/translated messages
-- [ ] Handle offline skins and nicknames gracefully
-- [ ] Avoid synchronous HTTP or skin fetching on render thread
+- [x] Native Minecraft player sprite for known player profiles
+- [x] Add commands to toggle heads and outer layer
+- [x] Avoid pretending anonymous system messages have authenticated players
+- [ ] CI build validation
+- [ ] Test genuine player-signed chat in Fabric 26.2
+- [ ] Test on Paper with and without plugin-modified chat
+- [ ] Check duplicates with other head mods, wrapping, skin render, GUI scale
 
 ## v0.3 — Chat presentation
-- [ ] Compact vanilla-like closed chat
-- [ ] Expanded tools when chat opened
-- [ ] Optional copy actions
-- [ ] Settings GUI with per-feature switches
+- [ ] Compact vanilla-like closed chat, expanded tools when opened
+- [ ] Copy messages
+- [ ] Accessible settings GUI
 
-## Longer-term
-- [ ] Mentions and smart focus (opt-in)
-- [ ] Local search and saved messages (privacy-first, opt-in)
-- [ ] Compatibility checks with popular chat mods
-- [ ] In-game validation and original creative contributions before Modrinth review
+## Longer term
+- [ ] Optional safe sender detection for server-plugin chat with explicit opt-in
+- [ ] Search / saved messages with privacy controls
+- [ ] Chat compatibility and release readiness
 
-Keep implementations client-side, lightweight, reviewable and respectful of signed chat.
+No network telemetry or automatic message history storage. Client only.

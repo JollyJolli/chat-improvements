@@ -13,7 +13,8 @@ public final class ChatImprovementsClient implements ClientModInitializer {
     public void onInitializeClient() {
         ChatImprovementsConfig.load();
         ChatImprovementsCommands.register();
-        LOGGER.info("Chat Improvements initialized (timestamps {}).",
-                ChatImprovementsConfig.get().timestampsEnabled ? "enabled" : "disabled");
+        LOGGER.info("Chat Improvements initialized (timestamps: {}, player heads: {}).",
+                ChatImprovementsConfig.get().timestampsEnabled,
+                ChatImprovementsConfig.get().playerHeadsEnabled);
     }
 }

@@ -20,6 +20,8 @@ public final class ChatImprovementsConfig {
     public boolean timestampsEnabled = true;
     public boolean twentyFourHour = true;
     public boolean showSeconds = false;
+    public boolean playerHeadsEnabled = true;
+    public boolean showHatLayer = true;
 
     public static ChatImprovementsConfig get() {
         return current;
@@ -39,7 +41,6 @@ public final class ChatImprovementsConfig {
                 ChatImprovementsClient.LOGGER.warn("Empty config at {}; using defaults.", PATH);
             }
         } catch (IOException | JsonParseException exception) {
-            // Preserve the invalid configuration so it can be recovered by the player.
             ChatImprovementsClient.LOGGER.warn("Could not read {}; using current settings.", PATH, exception);
         }
     }

@@ -17,7 +17,9 @@ public final class ChatImprovementsCommands {
                                 "Chat Improvements: timestamps " + (config.timestampsEnabled ? "ON" : "OFF")
                                 + ", " + (config.twentyFourHour ? "24h" : "12h")
                                 + ", seconds " + (config.showSeconds ? "ON" : "OFF")
-                                + ". Use /chatimprovements timestamps, format, seconds, or reload."));
+                                + ", heads " + (config.playerHeadsEnabled ? "ON" : "OFF")
+                                + ", hats " + (config.showHatLayer ? "ON" : "OFF")
+                                + ". Use timestamps, format, seconds, heads, hats or reload."));
                         return 1;
                     })
                     .then(ClientCommands.literal("timestamps")
@@ -57,6 +59,32 @@ public final class ChatImprovementsCommands {
                                 ChatImprovementsConfig.get().showSeconds = false;
                                 ChatImprovementsConfig.save();
                                 context.getSource().sendFeedback(Component.literal("Timestamp seconds disabled."));
+                                return 1;
+                            })))
+                    .then(ClientCommands.literal("heads")
+                            .then(ClientCommands.literal("on").executes(context -> {
+                                ChatImprovementsConfig.get().playerHeadsEnabled = true;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal("Chat player heads enabled."));
+                                return 1;
+                            }))
+                            .then(ClientCommands.literal("off").executes(context -> {
+                                ChatImprovementsConfig.get().playerHeadsEnabled = false;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal("Chat player heads disabled."));
+                                return 1;
+                            })))
+                    .then(ClientCommands.literal("hats")
+                            .then(ClientCommands.literal("on").executes(context -> {
+                                ChatImprovementsConfig.get().showHatLayer = true;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal("Chat head hat layers enabled."));
+                                return 1;
+                            }))
+                            .then(ClientCommands.literal("off").executes(context -> {
+                                ChatImprovementsConfig.get().showHatLayer = false;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal("Chat head hat layers disabled."));
                                 return 1;
                             })))
                     .then(ClientCommands.literal("reload").executes(context -> {
