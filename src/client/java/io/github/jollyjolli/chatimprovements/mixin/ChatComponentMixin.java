@@ -21,8 +21,8 @@ public abstract class ChatComponentMixin {
     )
     private Component chatimprovements$decorateIncomingMessage(Component message) {
         if (message == null) return null;
-        Component display = MentionDecorator.decorate(message);
-        display = CopyMessageDecorator.decorate(display);
+        Component display = CopyMessageDecorator.decorate(message);
+        display = MentionDecorator.decorate(display);
         return TimestampDecorator.decorate(display);
     }
 }

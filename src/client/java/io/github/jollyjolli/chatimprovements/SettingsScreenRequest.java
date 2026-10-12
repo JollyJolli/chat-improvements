@@ -21,7 +21,7 @@ final class SettingsScreenRequest {
         }
         requested = false;
         if (client.level != null) {
-            client.setScreen(new ChatImprovementsSettingsScreen());
+            client.setScreenAndShow(new ChatImprovementsSettingsScreen());
         }
     }
 }
