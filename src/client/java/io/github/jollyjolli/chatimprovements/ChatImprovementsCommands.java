@@ -17,7 +17,9 @@ public final class ChatImprovementsCommands {
                                 "Chat Improvements: timestamps " + (config.timestampsEnabled ? "ON" : "OFF")
                                 + ", " + (config.twentyFourHour ? "24h" : "12h")
                                 + ", seconds " + (config.showSeconds ? "ON" : "OFF")
-                                + ". Use /chatimprovements timestamps, format, seconds, or reload."));
+                                + ", copy " + (config.copyButtonsEnabled ? "ON" : "OFF")
+                                + ", mentions " + (config.mentionHighlightsEnabled ? "ON" : "OFF")
+                                + ". Use /chatimprovements settings to open the menu."));
                         return 1;
                     })
                     .then(ClientCommands.literal("timestamps")
@@ -59,6 +61,38 @@ public final class ChatImprovementsCommands {
                                 context.getSource().sendFeedback(Component.literal("Timestamp seconds disabled."));
                                 return 1;
                             })))
+                    .then(ClientCommands.literal("copy")
+                            .then(ClientCommands.literal("on").executes(context -> {
+                                ChatImprovementsConfig.get().copyButtonsEnabled = true;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal("Copy buttons enabled."));
+                                return 1;
+                            }))
+                            .then(ClientCommands.literal("off").executes(context -> {
+                                ChatImprovementsConfig.get().copyButtonsEnabled = false;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal("Copy buttons disabled."));
+                                return 1;
+                            })))
+                    .then(ClientCommands.literal("mentions")
+                            .then(ClientCommands.literal("on").executes(context -> {
+                                ChatImprovementsConfig.get().mentionHighlightsEnabled = true;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal("Mention indicators enabled."));
+                                return 1;
+                            }))
+                            .then(ClientCommands.literal("off").executes(context -> {
+                                ChatImprovementsConfig.get().mentionHighlightsEnabled = false;
+                                ChatImprovementsConfig.save();
+                                context.getSource().sendFeedback(Component.literal("Mention indicators disabled."));
+                                return 1;
+                            })))
+                    .then(ClientCommands.literal("settings").executes(context -> {
+                        // The chat command will close its ChatScreen after execution;
+                        // open on the next client tick to avoid that screen overwriting ours.
+                        SettingsScreenRequest.request();
+                        return 1;
+                    }))
                     .then(ClientCommands.literal("reload").executes(context -> {
                         ChatImprovementsConfig.load();
                         context.getSource().sendFeedback(Component.literal("Chat Improvements configuration reloaded."));
