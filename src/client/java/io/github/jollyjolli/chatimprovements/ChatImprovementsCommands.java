@@ -17,7 +17,7 @@ public final class ChatImprovementsCommands {
                                 "Chat Improvements: timestamps " + (config.timestampsEnabled ? "ON" : "OFF")
                                 + ", " + (config.twentyFourHour ? "24h" : "12h")
                                 + ", seconds " + (config.showSeconds ? "ON" : "OFF")
-                                + ". Use /chatimprovements timestamps, format, seconds, or reload."));
+                                + ". Use /chatimprovements settings to open the graphical menu."));
                         return 1;
                     })
                     .then(ClientCommands.literal("timestamps")
@@ -59,6 +59,12 @@ public final class ChatImprovementsCommands {
                                 context.getSource().sendFeedback(Component.literal("Timestamp seconds disabled."));
                                 return 1;
                             })))
+                    .then(ClientCommands.literal("settings").executes(context -> {
+                        // The chat command will close its ChatScreen after execution;
+                        // open on the next client tick to avoid that screen overwriting ours.
+                        SettingsScreenRequest.request();
+                        return 1;
+                    }))
                     .then(ClientCommands.literal("reload").executes(context -> {
                         ChatImprovementsConfig.load();
                         context.getSource().sendFeedback(Component.literal("Chat Improvements configuration reloaded."));
