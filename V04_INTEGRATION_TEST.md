@@ -1,4 +1,4 @@
-# Chat Improvements v0.4-preview.1 — integrated manual testing
+# Chat Improvements v0.4-preview.2 — integrated manual testing
 
 This preview combines three independently developed branches and is intentionally **not merged into main**.
 
@@ -21,6 +21,13 @@ Remove old Chat Improvements jars; install the NON-sources jar from the latest *
 - Join the large server with missing heads; reset should happen automatically on connection change, send 5 messages and copy the second report.
 - Report counts only (not screenshots of private messages or server names unless redacted). Counters include player vs server-system chat; no stored messages, usernames or addresses.
 - Heads still expected to work on small private servers; NO claim of big-public-server fix.
+
+## New custom chat HUD redesign (PR #26, issue #25)
+- Open `/ci` -> STYLE -> Custom chat HUD ON/OFF. ON shows the Dark Neon HUD; OFF restores default chat display layout (apart from independent features).
+- Press T: dark glass panel behind expanded chat, matching accent-colored border/rail, and CHAT/LIVE heading appear. Esc closes it.
+- New incoming messages get one colored vertical marker each; copied clipboard text via [C] must **exclude** it.
+- Try all four color themes, change GUI scale (2/3/4), Minecraft chat-scale/height/width, scrolling, wrapped messages and chat reports.
+- Check that the overlay never obscures the text input or breaks link clicks. Send screenshots of any overlap; this is a presentation beta, not a complete vanilla chat-engine replacement.
 
 ## Regression checklist
 C keybind, /ci, four Dark Neon colors, reset defaults, timestamps, copy button, mention highlights, heads, second skin layer, and original click/hover formatting. Test at least small private server and large public server.
