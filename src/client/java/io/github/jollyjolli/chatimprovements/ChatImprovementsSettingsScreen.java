@@ -104,6 +104,18 @@ public final class ChatImprovementsSettingsScreen extends Screen {
                         refresh();
                     }).bounds(bx, by, half, compact ? 20 : 24).build());
         }
+        var cfg = ChatImprovementsConfig.get();
+        addRenderableWidget(Button.builder(Component.translatable(
+                "gui.chatimprovements.chat_skin",
+                Component.translatable(cfg.chatSkinEnabled
+                        ? "gui.chatimprovements.on" : "gui.chatimprovements.off"))
+                .withStyle(s -> s.withColor(cfg.chatSkinEnabled ? UiPalette.accent()
+                        : UiPalette.MUTED)), button -> {
+            cfg.chatSkinEnabled = !cfg.chatSkinEnabled;
+            ChatImprovementsConfig.save();
+            refresh();
+        }).bounds(x + 19, y + (compact ? 113 : 154), w - 38,
+                compact ? 18 : 23).build());
     }
 
     private void buildLayout() {

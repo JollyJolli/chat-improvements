@@ -33,5 +33,8 @@
   "gui.chatimprovements.copy_report": "Copy report",
   "gui.chatimprovements.clear_counts": "Reset counters",
   "gui.chatimprovements.back": "Back to settings",
-  "gui.chatimprovements.diagnostic_privacy": "Counts only. Nothing recorded or sent."
+  "gui.chatimprovements.diagnostic_privacy": "Counts only. Nothing recorded or sent.",
+  "gui.chatimprovements.chat_skin": "Custom chat HUD: %s",
+  "chatimprovements.skin.header": "CHAT  /  LIVE",
+  "chatimprovements.skin.expanded": "EXPANDED"
 }
