@@ -53,6 +53,14 @@ public final class ChatImprovementsSettingsScreen extends Screen {
             }
         }
 
+        if (page == 1) {
+            // Diagnostics is an explicit, user-controlled tool; no passive logging.
+            addRenderableWidget(Button.builder(Component.translatable(
+                    "gui.chatimprovements.diagnostics"), button -> {
+                if (this.minecraft != null) this.minecraft.setScreenAndShow(new HeadDiagnosticsScreen());
+            }).bounds(x + 19, y + (compact ? 144 : 159), w - 38, 20).build());
+        }
+
         int half = (w - 30) / 2;
         addRenderableWidget(Button.builder(
                 Component.translatable("gui.chatimprovements.reset").withStyle(s -> s.withColor(UiPalette.WARNING)),
