@@ -19,7 +19,8 @@ public final class ChatImprovementsClient implements ClientModInitializer {
     public void onInitializeClient() {
         ChatImprovementsConfig.load();
         ChatImprovementsCommands.register();
-        ChatHudSkin.register();
+        // Native chat backgrounds are restyled by ChatComponent/ChatScreen mixins.
+        // Do not install the old behind-chat HUD overlay (would double-render).
 
         openSettingsKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.chatimprovements.open_settings",

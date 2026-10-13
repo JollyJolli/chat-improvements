@@ -36,5 +36,8 @@
   "gui.chatimprovements.diagnostic_privacy": "Counts only. Nothing recorded or sent.",
   "gui.chatimprovements.chat_skin": "Custom chat HUD: %s",
   "chatimprovements.skin.header": "CHAT  /  LIVE",
-  "chatimprovements.skin.expanded": "EXPANDED"
+  "chatimprovements.skin.expanded": "EXPANDED",
+  "chatimprovements.native.title": "CHAT IMPROVEMENTS",
+  "chatimprovements.native.subtitle": "LIVE / EXPANDED",
+  "chatimprovements.native.compose": "WRITE A MESSAGE  ·  ENTER TO SEND"
 }

@@ -5,7 +5,10 @@
   "client": [
     "ChatComponentMixin",
     "ChatListenerMixin",
-    "CompactChatMixin"
+    "CompactChatMixin",
+    "ChatBackgroundGraphicsMixin",
+    "ChatFocusedGraphicsMixin",
+    "ChatExpandedScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
