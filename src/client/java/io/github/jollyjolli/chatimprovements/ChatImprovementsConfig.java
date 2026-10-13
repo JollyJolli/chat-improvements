@@ -22,6 +22,8 @@ public final class ChatImprovementsConfig {
     public boolean showSeconds = false;
     public boolean copyButtonsEnabled = true;
     public boolean mentionHighlightsEnabled = false;
+    /** True by default, but only authenticated known players get an [M] action. */
+    public boolean quickMentionEnabled = true;
     /** Uses known sender identity of signed player chat; no guesses required. */
     public boolean playerHeadsEnabled = true;
     public boolean showHatLayer = true;

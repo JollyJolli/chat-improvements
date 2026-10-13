@@ -38,7 +38,7 @@ public final class ChatImprovementsSettingsScreen extends Screen {
 
         if (page == 2) buildColors();
         else {
-            int[] ids = page == 1 ? new int[] {5, 6, 7} : new int[] {0, 1, 2, 3, 4};
+            int[] ids = page == 1 ? new int[] {5, 6, 7} : new int[] {0, 1, 2, 3, 4, 8};
             for (int i = 0; i < ids.length; i++) {
                 int col = compact ? 0 : i % 2;
                 int row = compact ? i : i / 2;
@@ -106,6 +106,7 @@ public final class ChatImprovementsSettingsScreen extends Screen {
             case 2 -> c.showSeconds;
             case 3 -> c.copyButtonsEnabled;
             case 4 -> c.mentionHighlightsEnabled;
+            case 8 -> c.quickMentionEnabled;
             case 5 -> c.playerHeadsEnabled;
             case 6 -> c.showHatLayer;
             default -> c.systemHeadFallback;
@@ -115,6 +116,7 @@ public final class ChatImprovementsSettingsScreen extends Screen {
             case 2 -> "gui.chatimprovements.seconds";
             case 3 -> "gui.chatimprovements.copy";
             case 4 -> "gui.chatimprovements.mentions";
+            case 8 -> "gui.chatimprovements.quickmention";
             case 5 -> "gui.chatimprovements.heads";
             case 6 -> "gui.chatimprovements.hats";
             default -> "gui.chatimprovements.compatibility";
@@ -136,6 +138,7 @@ public final class ChatImprovementsSettingsScreen extends Screen {
             case 5 -> c.playerHeadsEnabled = !c.playerHeadsEnabled;
             case 6 -> c.showHatLayer = !c.showHatLayer;
             case 7 -> c.systemHeadFallback = !c.systemHeadFallback;
+            case 8 -> c.quickMentionEnabled = !c.quickMentionEnabled;
             default -> { }
         }
         ChatImprovementsConfig.save();
