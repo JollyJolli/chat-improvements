@@ -29,6 +29,10 @@ public final class ChatImprovementsConfig {
     public boolean systemHeadFallback = false;
     /** GUI-only theme: 0 cyan, 1 violet, 2 amber, 3 lime. */
     public int uiAccentTheme = 0;
+    /** Limit the unfocused HUD, never the expanded chat editor or vanilla options. */
+    public boolean compactHudEnabled = true;
+    /** Only 3, 5, and 8 are exposed by the UI. */
+    public int compactHudLines = 5;
 
     public static ChatImprovementsConfig get() {
         return current;
