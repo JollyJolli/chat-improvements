@@ -3,6 +3,7 @@ package io.github.jollyjolli.chatimprovements.mixin;
 import io.github.jollyjolli.chatimprovements.CopyMessageDecorator;
 import io.github.jollyjolli.chatimprovements.MentionDecorator;
 import io.github.jollyjolli.chatimprovements.TimestampDecorator;
+import io.github.jollyjolli.chatimprovements.PlayerHeadDecorator;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,5 +25,16 @@ public abstract class ChatComponentMixin {
         Component display = CopyMessageDecorator.decorate(message);
         display = MentionDecorator.decorate(display);
         return TimestampDecorator.decorate(display);
+    }
+    /**
+     * Unverified fallback for plugin-reformatted system chat (opt-in only).
+     * Doesn't change or forge signed player chat packets.
+     */
+    @ModifyVariable(
+            method = "addServerSystemMessage(Lnet/minecraft/network/chat/Component;)V",
+            at = @At("HEAD"), argsOnly = true, ordinal = 0, require = 0
+    )
+    private Component chatimprovements$decorateServerSystemMessage(Component message) {
+        return PlayerHeadDecorator.decorateUnverifiedSystemMessage(message);
     }
 }

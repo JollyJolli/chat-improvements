@@ -2,10 +2,6 @@
   "required": true,
   "package": "io.github.jollyjolli.chatimprovements.mixin",
   "compatibilityLevel": "JAVA_25",
-  "client": [
-    "ChatComponentMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+  "client": ["ChatComponentMixin", "ChatListenerMixin"],
+  "injectors": {"defaultRequire": 1}
 }

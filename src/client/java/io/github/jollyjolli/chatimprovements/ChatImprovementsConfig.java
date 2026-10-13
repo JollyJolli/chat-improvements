@@ -22,6 +22,11 @@ public final class ChatImprovementsConfig {
     public boolean showSeconds = false;
     public boolean copyButtonsEnabled = true;
     public boolean mentionHighlightsEnabled = false;
+    /** Uses known sender identity of signed player chat; no guesses required. */
+    public boolean playerHeadsEnabled = true;
+    public boolean showHatLayer = true;
+    /** Unverified: may attach the wrong head to server-generated chat. */
+    public boolean systemHeadFallback = false;
 
     public static ChatImprovementsConfig get() {
         return current;
