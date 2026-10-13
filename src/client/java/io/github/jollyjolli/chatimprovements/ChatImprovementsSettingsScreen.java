@@ -31,12 +31,14 @@ public final class ChatImprovementsSettingsScreen extends Screen {
         resetArmed = false;
 
         int inner = x + 11, gap = 6;
-        int tabW = (w - 22 - 2 * gap) / 3;
+        int tabW = (w - 22 - 3 * gap) / 4;
         tab("gui.chatimprovements.tab_chat", 0, inner, tabW);
         tab("gui.chatimprovements.tab_heads", 1, inner + tabW + gap, tabW);
-        tab("gui.chatimprovements.tab_style", 2, inner + 2 * (tabW + gap), w - 22 - 2 * (tabW + gap));
+        tab("gui.chatimprovements.tab_style", 2, inner + 2 * (tabW + gap), tabW);
+        tab("gui.chatimprovements.tab_layout", 3, inner + 3 * (tabW + gap), w - 22 - 3 * (tabW + gap));
 
-        if (page == 2) buildColors();
+        if (page == 3) buildLayout();
+        else if (page == 2) buildColors();
         else {
             int[] ids = page == 1 ? new int[] {5, 6, 7} : new int[] {0, 1, 2, 3, 4};
             for (int i = 0; i < ids.length; i++) {
@@ -95,6 +97,32 @@ public final class ChatImprovementsSettingsScreen extends Screen {
                         refresh();
                     }).bounds(bx, by, half, compact ? 20 : 24).build());
         }
+    }
+
+    private void buildLayout() {
+        int gap = 10;
+        int half = (w - 48) / 2;
+        var cfg = ChatImprovementsConfig.get();
+        addRenderableWidget(Button.builder(Component.translatable("gui.chatimprovements.compact",
+                Component.translatable(cfg.compactHudEnabled
+                        ? "gui.chatimprovements.on" : "gui.chatimprovements.off"))
+                .withStyle(s -> s.withColor(cfg.compactHudEnabled
+                        ? UiPalette.accent() : UiPalette.MUTED)), button -> {
+            cfg.compactHudEnabled = !cfg.compactHudEnabled;
+            ChatImprovementsConfig.save();
+            refresh();
+        }).bounds(x + 19, y + (compact ? 65 : 82), compact ? w - 38 : half,
+                compact ? 20 : 24).build());
+
+        addRenderableWidget(Button.builder(Component.translatable("gui.chatimprovements.compact_lines",
+                cfg.compactHudLines).withStyle(s -> s.withColor(UiPalette.accent())), button -> {
+            cfg.compactHudLines = cfg.compactHudLines == 3 ? 5
+                    : cfg.compactHudLines == 5 ? 8 : 3;
+            ChatImprovementsConfig.save();
+            refresh();
+        }).bounds(compact ? x + 19 : x + 19 + half + gap,
+                y + (compact ? 91 : 82), compact ? w - 38 : half,
+                compact ? 20 : 24).build());
     }
 
     private Component label(int id) {
@@ -157,7 +185,7 @@ public final class ChatImprovementsSettingsScreen extends Screen {
         graphics.outline(x + 9, y + 10, 20, 19, UiPalette.accent());
         graphics.text(font, "C", x + 16, y + 15, UiPalette.accent(), true);
 
-        int navX = x + 11, navW = (w - 34) / 3;
+        int navX = x + 11, navW = (w - 40) / 4;
         graphics.fill(x + 8, y + 33, x + w - 8, y + 60, 0xBA122232);
         graphics.fill(navX + page * (navW + 6), y + 57,
                 navX + page * (navW + 6) + navW, y + 60, UiPalette.accent());
@@ -185,8 +213,10 @@ public final class ChatImprovementsSettingsScreen extends Screen {
         } else if (page == 1) {
             note = Component.translatable(ChatImprovementsConfig.get().systemHeadFallback
                     ? "gui.chatimprovements.fallback_warning" : "gui.chatimprovements.heads_note");
-        } else {
+        } else if (page == 2) {
             note = Component.translatable("gui.chatimprovements.style_note");
+        } else {
+            note = Component.translatable("gui.chatimprovements.layout_note");
         }
         graphics.text(font, note, x + 14, noteY, UiPalette.MUTED, true);
         graphics.text(font, Component.translatable("gui.chatimprovements.footer"),
