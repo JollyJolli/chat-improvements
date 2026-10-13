@@ -36,5 +36,8 @@
   "gui.chatimprovements.diagnostic_privacy": "Solo contadores. Nada se guarda o envia.",
   "gui.chatimprovements.chat_skin": "Chat personalizado: %s",
   "chatimprovements.skin.header": "CHAT  /  EN VIVO",
-  "chatimprovements.skin.expanded": "EXPANDIDO"
+  "chatimprovements.skin.expanded": "EXPANDIDO",
+  "chatimprovements.native.title": "CHAT IMPROVEMENTS",
+  "chatimprovements.native.subtitle": "EN VIVO / EXPANDIDO",
+  "chatimprovements.native.compose": "ESCRIBE UN MENSAJE  ·  ENTER PARA ENVIAR"
 }
