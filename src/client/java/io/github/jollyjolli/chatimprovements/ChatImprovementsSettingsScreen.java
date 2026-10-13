@@ -8,11 +8,11 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 /**
- * A small, native, two-page settings dashboard. No chat commands required for
+ * A dark-neon, three-page settings dashboard. No chat commands required for
  * individual options. All settings take effect on subsequent messages.
  */
 public final class ChatImprovementsSettingsScreen extends Screen {
-    private final boolean headsPage;
+    private final int page;
     private boolean resetArmed;
     private int left;
     private int top;
@@ -20,12 +20,12 @@ public final class ChatImprovementsSettingsScreen extends Screen {
     private boolean narrow;
 
     public ChatImprovementsSettingsScreen() {
-        this(false);
+        this(0);
     }
 
-    private ChatImprovementsSettingsScreen(boolean headsPage) {
+    private ChatImprovementsSettingsScreen(int page) {
         super(Component.translatable("gui.chatimprovements.title"));
-        this.headsPage = headsPage;
+        this.page = page;
     }
 
     @Override
@@ -38,16 +38,15 @@ public final class ChatImprovementsSettingsScreen extends Screen {
 
         int gap = 10;
         int half = (layoutWidth - gap) / 2;
-        addRenderableWidget(Button.builder(Component.translatable("gui.chatimprovements.tab_chat"),
-                button -> switchPage(false)).bounds(left, top + 31, half, 20).build());
-        addRenderableWidget(Button.builder(Component.translatable("gui.chatimprovements.tab_heads"),
-                button -> switchPage(true)).bounds(left + half + gap, top + 31, half, 20).build());
+        int third = (layoutWidth - 2 * gap) / 3;
+        tab("gui.chatimprovements.tab_chat", 0, left, third);
+        tab("gui.chatimprovements.tab_heads", 1, left + third + gap, third);
+        tab("gui.chatimprovements.tab_style", 2, left + (third + gap) * 2,
+                layoutWidth - 2 * (third + gap));
 
-        if (headsPage) {
-            initHeads(gap, half);
-        } else {
-            initChat(gap, half);
-        }
+        if (page == 1) initHeads(gap, half);
+        else if (page == 2) initStyle(gap, half);
+        else initChat(gap, half);
         addFooterButtons(narrow ? top + 200 : top + 157);
     }
 
@@ -85,9 +84,36 @@ public final class ChatImprovementsSettingsScreen extends Screen {
         }
     }
 
-    private void switchPage(boolean nextHeadsPage) {
-        if (nextHeadsPage != headsPage && this.minecraft != null) {
-            this.minecraft.setScreenAndShow(new ChatImprovementsSettingsScreen(nextHeadsPage));
+    private void tab(String key, int destination, int x, int w) {
+        int color = destination == page ? UiPalette.accent() : UiPalette.MUTED;
+        addRenderableWidget(Button.builder(Component.translatable(key)
+                .withStyle(style -> style.withColor(color)),
+                button -> switchPage(destination)).bounds(x, top + 31, w, 20).build());
+    }
+
+    private void switchPage(int nextPage) {
+        if (nextPage != page && this.minecraft != null) {
+            this.minecraft.setScreenAndShow(new ChatImprovementsSettingsScreen(nextPage));
+        }
+    }
+
+    private void initStyle(int gap, int half) {
+        String[] names = {"CYAN", "VIOLET", "AMBER", "LIME"};
+        for (int i = 0; i < names.length; i++) {
+            final int choice = i;
+            int width = narrow ? layoutWidth : half;
+            int x = narrow ? left : left + (i % 2) * (half + gap);
+            int y = top + 60 + (narrow ? i : i / 2) * (narrow ? 24 : 27);
+            int color = UiPalette.accent(i);
+            String selected = UiPalette.index() == i ? "* " : "";
+            addRenderableWidget(Button.builder(Component.literal(selected + names[i])
+                    .withStyle(style -> style.withColor(color)), button -> {
+                ChatImprovementsConfig.get().uiAccentTheme = choice;
+                ChatImprovementsConfig.save();
+                if (this.minecraft != null) {
+                    this.minecraft.setScreenAndShow(new ChatImprovementsSettingsScreen(page));
+                }
+            }).bounds(x, y, width, 20).build());
         }
     }
 
@@ -181,7 +207,7 @@ public final class ChatImprovementsSettingsScreen extends Screen {
             }
             ChatImprovementsConfig.resetDefaults();
             if (this.minecraft != null) {
-                this.minecraft.setScreenAndShow(new ChatImprovementsSettingsScreen(headsPage));
+                this.minecraft.setScreenAndShow(new ChatImprovementsSettingsScreen(page));
             }
         }).bounds(left, y, w, 20).build());
 
@@ -191,12 +217,14 @@ public final class ChatImprovementsSettingsScreen extends Screen {
 
     private static Component toggleLabel(String key, boolean enabled) {
         return Component.translatable(key,
-                Component.translatable(enabled ? "gui.chatimprovements.on" : "gui.chatimprovements.off"));
+                Component.translatable(enabled ? "gui.chatimprovements.on" : "gui.chatimprovements.off"))
+                .withStyle(style -> style.withColor(enabled ? UiPalette.accent() : UiPalette.MUTED));
     }
 
     private static Component clockLabel() {
         return Component.translatable("gui.chatimprovements.clock",
-                ChatImprovementsConfig.get().twentyFourHour ? "24h" : "12h");
+                ChatImprovementsConfig.get().twentyFourHour ? "24h" : "12h")
+                .withStyle(style -> style.withColor(UiPalette.accent()));
     }
 
     @Override
