@@ -20,9 +20,23 @@ public final class ChatImprovementsConfig {
     public boolean timestampsEnabled = true;
     public boolean twentyFourHour = true;
     public boolean showSeconds = false;
+    public boolean copyButtonsEnabled = true;
+    public boolean mentionHighlightsEnabled = false;
+    /** Uses known sender identity of signed player chat; no guesses required. */
+    public boolean playerHeadsEnabled = true;
+    public boolean showHatLayer = true;
+    /** Unverified: may attach the wrong head to server-generated chat. */
+    public boolean systemHeadFallback = false;
+    /** GUI-only theme: 0 cyan, 1 violet, 2 amber, 3 lime. */
+    public int uiAccentTheme = 0;
 
     public static ChatImprovementsConfig get() {
         return current;
+    }
+
+    public static void resetDefaults() {
+        current = new ChatImprovementsConfig();
+        save();
     }
 
     public static void load() {
@@ -39,7 +53,6 @@ public final class ChatImprovementsConfig {
                 ChatImprovementsClient.LOGGER.warn("Empty config at {}; using defaults.", PATH);
             }
         } catch (IOException | JsonParseException exception) {
-            // Preserve the invalid configuration so it can be recovered by the player.
             ChatImprovementsClient.LOGGER.warn("Could not read {}; using current settings.", PATH, exception);
         }
     }
