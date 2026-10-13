@@ -27,6 +27,8 @@ public final class ChatImprovementsConfig {
     public boolean showHatLayer = true;
     /** Unverified: may attach the wrong head to server-generated chat. */
     public boolean systemHeadFallback = false;
+    /** GUI-only theme: 0 cyan, 1 violet, 2 amber, 3 lime. */
+    public int uiAccentTheme = 0;
 
     public static ChatImprovementsConfig get() {
         return current;
