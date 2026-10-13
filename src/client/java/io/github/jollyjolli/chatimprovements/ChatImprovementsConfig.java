@@ -27,6 +27,11 @@ public final class ChatImprovementsConfig {
         return current;
     }
 
+    public static void resetDefaults() {
+        current = new ChatImprovementsConfig();
+        save();
+    }
+
     public static void load() {
         if (!Files.exists(PATH)) {
             save();
@@ -41,7 +46,6 @@ public final class ChatImprovementsConfig {
                 ChatImprovementsClient.LOGGER.warn("Empty config at {}; using defaults.", PATH);
             }
         } catch (IOException | JsonParseException exception) {
-            // Preserve the invalid configuration so it can be recovered by the player.
             ChatImprovementsClient.LOGGER.warn("Could not read {}; using current settings.", PATH, exception);
         }
     }

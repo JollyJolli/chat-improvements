@@ -1,0 +1,19 @@
+{
+  "key.chatimprovements.open_settings": "Abrir Chat Improvements",
+  "gui.chatimprovements.title": "CHAT IMPROVEMENTS",
+  "gui.chatimprovements.subtitle": "Personaliza tu chat",
+  "gui.chatimprovements.display": "APARIENCIA DEL CHAT",
+  "gui.chatimprovements.messages": "HERRAMIENTAS",
+  "gui.chatimprovements.timestamps": "Horas: %s",
+  "gui.chatimprovements.clock": "Formato: %s",
+  "gui.chatimprovements.seconds": "Mostrar segundos: %s",
+  "gui.chatimprovements.copy": "Copiar mensajes: %s",
+  "gui.chatimprovements.mentions": "Menciones: %s",
+  "gui.chatimprovements.on": "SI",
+  "gui.chatimprovements.off": "NO",
+  "gui.chatimprovements.preview": "Vista previa: %s Steve: ¡Hola!",
+  "gui.chatimprovements.reset": "Restablecer",
+  "gui.chatimprovements.confirm_reset": "¿Confirmar?",
+  "gui.chatimprovements.done": "Listo",
+  "gui.chatimprovements.footer": "Atajo: C (modificable en Controles)"
+}

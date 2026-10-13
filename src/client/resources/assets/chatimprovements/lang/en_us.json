@@ -1,0 +1,19 @@
+{
+  "key.chatimprovements.open_settings": "Open Chat Improvements",
+  "gui.chatimprovements.title": "CHAT IMPROVEMENTS",
+  "gui.chatimprovements.subtitle": "Customize your chat experience",
+  "gui.chatimprovements.display": "CHAT DISPLAY",
+  "gui.chatimprovements.messages": "MESSAGE TOOLS",
+  "gui.chatimprovements.timestamps": "Timestamps: %s",
+  "gui.chatimprovements.clock": "Clock format: %s",
+  "gui.chatimprovements.seconds": "Show seconds: %s",
+  "gui.chatimprovements.copy": "Copy buttons: %s",
+  "gui.chatimprovements.mentions": "Mentions: %s",
+  "gui.chatimprovements.on": "ON",
+  "gui.chatimprovements.off": "OFF",
+  "gui.chatimprovements.preview": "Preview: %s Steve: Hello!",
+  "gui.chatimprovements.reset": "Reset defaults",
+  "gui.chatimprovements.confirm_reset": "Confirm reset?",
+  "gui.chatimprovements.done": "Done",
+  "gui.chatimprovements.footer": "Shortcut: C (change it in Controls > Key Binds)"
+}
