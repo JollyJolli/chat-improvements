@@ -19,6 +19,7 @@ public final class ChatImprovementsClient implements ClientModInitializer {
     public void onInitializeClient() {
         ChatImprovementsConfig.load();
         ChatImprovementsCommands.register();
+        ChatHudSkin.register();
 
         openSettingsKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.chatimprovements.open_settings",

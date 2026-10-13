@@ -2,6 +2,7 @@ package io.github.jollyjolli.chatimprovements.mixin;
 
 import io.github.jollyjolli.chatimprovements.CopyMessageDecorator;
 import io.github.jollyjolli.chatimprovements.MentionDecorator;
+import io.github.jollyjolli.chatimprovements.ChatLineSkinDecorator;
 import io.github.jollyjolli.chatimprovements.TimestampDecorator;
 import io.github.jollyjolli.chatimprovements.PlayerHeadDecorator;
 import io.github.jollyjolli.chatimprovements.HeadChatDiagnostics;
@@ -29,6 +30,7 @@ public abstract class ChatComponentMixin {
         if (message == null) return null;
         Component display = CopyMessageDecorator.decorate(message);
         display = MentionDecorator.decorate(display);
+        display = ChatLineSkinDecorator.decorate(display);
         return TimestampDecorator.decorate(display);
     }
     /**
