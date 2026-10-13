@@ -17,7 +17,7 @@ public final class CopyMessageDecorator {
         if (original == null || !ChatImprovementsConfig.get().copyButtonsEnabled) {
             return original;
         }
-        String plainText = original.getString();
+        String plainText = QuickMentionDecorator.copyableText(original);
         if (plainText.isEmpty()) {
             return original;
         }
