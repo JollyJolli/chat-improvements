@@ -36,6 +36,7 @@ public final class PlayerHeadDecorator {
         PlayerInfo info = connection.getPlayerInfo(sender.id());
         if (info == null) {
             // Don't guess the identity or show a random/default head.
+            HeadChatDiagnostics.missingKnownProfile();
             return original;
         }
 
@@ -62,18 +63,22 @@ public final class PlayerHeadDecorator {
         String text = original.getString();
         Matcher match = PLAYER_CHAT.matcher(text);
         if (!match.find()) {
+            HeadChatDiagnostics.fallbackNotMatched();
             return original;
         }
 
         String candidate = match.group(1);
         PlayerInfo info = connection.getPlayerInfo(candidate);
         if (info == null || !candidate.equals(info.getProfile().name())) {
+            HeadChatDiagnostics.fallbackNotMatched();
             return original;
         }
+        HeadChatDiagnostics.fallbackMatched();
         return withHead(original, info);
     }
 
     private static Component withHead(Component original, PlayerInfo info) {
+        HeadChatDiagnostics.headDisplayed();
         ResolvableProfile profile = ResolvableProfile.createResolved(info.getProfile());
         Component head = Component.object(
                 new PlayerSprite(profile, ChatImprovementsConfig.get().showHatLayer));

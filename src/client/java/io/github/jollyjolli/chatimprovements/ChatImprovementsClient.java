@@ -28,6 +28,7 @@ public final class ChatImprovementsClient implements ClientModInitializer {
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            HeadChatDiagnostics.observeConnection(client.getConnection());
             // Consume presses even if a different screen is open, so a C typed
             // into chat, signs or search boxes cannot open our menu later.
             while (openSettingsKey.consumeClick()) {
