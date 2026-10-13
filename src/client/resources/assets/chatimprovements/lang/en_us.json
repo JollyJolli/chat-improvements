@@ -15,5 +15,12 @@
   "gui.chatimprovements.reset": "Reset defaults",
   "gui.chatimprovements.confirm_reset": "Confirm reset?",
   "gui.chatimprovements.done": "Done",
-  "gui.chatimprovements.footer": "Shortcut: C (change it in Controls > Key Binds)"
+  "gui.chatimprovements.footer": "Shortcut: C (change it in Controls > Key Binds)",
+  "gui.chatimprovements.tab_chat": "CHAT",
+  "gui.chatimprovements.tab_heads": "PLAYER HEADS",
+  "gui.chatimprovements.heads": "Show player heads: %s",
+  "gui.chatimprovements.hats": "Hat / outer layer: %s",
+  "gui.chatimprovements.compatibility": "Experimental server heads: %s",
+  "gui.chatimprovements.heads_note": "Player skins for identified senders",
+  "gui.chatimprovements.fallback_warning": "Experimental names may be spoofed"
 }

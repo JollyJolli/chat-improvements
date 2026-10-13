@@ -15,5 +15,12 @@
   "gui.chatimprovements.reset": "Restablecer",
   "gui.chatimprovements.confirm_reset": "¿Confirmar?",
   "gui.chatimprovements.done": "Listo",
-  "gui.chatimprovements.footer": "Atajo: C (modificable en Controles)"
+  "gui.chatimprovements.footer": "Atajo: C (modificable en Controles)",
+  "gui.chatimprovements.tab_chat": "CHAT",
+  "gui.chatimprovements.tab_heads": "CABEZAS",
+  "gui.chatimprovements.heads": "Mostrar cabezas: %s",
+  "gui.chatimprovements.hats": "Capa externa: %s",
+  "gui.chatimprovements.compatibility": "Servidor experimental: %s",
+  "gui.chatimprovements.heads_note": "Skins de jugadores identificados",
+  "gui.chatimprovements.fallback_warning": "Nombres no verificados pueden ser falsos"
 }

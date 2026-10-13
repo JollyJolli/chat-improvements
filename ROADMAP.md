@@ -1,29 +1,26 @@
 # Chat Improvements roadmap
 
-## v0.1 — Timestamp beta
-- [x] Standard client-only Fabric source layout
-- [x] Configurable chat timestamps, 12h/24h formats, seconds optional
-- [x] Client commands and locally saved preferences
-- [ ] CI green for feature branch
-- [ ] Validate singleplayer and Paper 26.2 in game
-- [ ] Verify styling, links, hover events, signatures, long messages, and HUD resizing
+## v0.1 Timestamps
+- [x] Vanilla/Fabric multiplayer screenshot verified timestamps
+- [x] Fix 26.2 mixin startup crash (#6)
+- [ ] Remaining formatting/hover/accessibility tests (#3)
 
-## v0.2 — Player heads
-- [ ] Investigate signed sender identity, skin manager APIs and profile lookups
-- [ ] Render sender heads without false attribution to system/translated messages
-- [ ] Handle offline skins and nicknames gracefully
-- [ ] Avoid synchronous HTTP or skin fetching on render thread
+## v0.2 Player Heads
+- [x] Known-profile native player sprite renders in private world
+- [x] Opt-in unverified `<Username>` fallback for system chat
+- [x] Restored to v0.3 integration preview (not main)
+- [ ] Test combined beta with real signed player chat
+- [ ] Improve large-server compatibility: #8 (server formatting unknown)
 
-## v0.3 — Chat presentation
-- [ ] Compact vanilla-like closed chat
-- [ ] Expanded tools when chat opened
-- [ ] Optional copy actions
-- [ ] Settings GUI with per-feature switches
+## v0.3 Chat Enhancements
+- [x] Copy button: #9, PR #12
+- [x] Mention indicator: #10, PR #13
+- [x] Full native settings GUI /ci, rebindable C, tabs: #5 #17, PR #14 / integration PR #15
+- [ ] In-game validation of full combined preview (#16)
+- [ ] Merge independently reviewed PRs to stable main after QA
 
-## Longer-term
-- [ ] Mentions and smart focus (opt-in)
-- [ ] Local search and saved messages (privacy-first, opt-in)
-- [ ] Compatibility checks with popular chat mods
-- [ ] In-game validation and original creative contributions before Modrinth review
-
-Keep implementations client-side, lightweight, reviewable and respectful of signed chat.
+## Future
+- [ ] Quick Mention #11
+- [ ] Compact/expanded chat #5
+- [ ] Search and privacy-first saved messages
+- [ ] Cross-mod compatibility and original human contributions before publication
