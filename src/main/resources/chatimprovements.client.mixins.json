@@ -2,6 +2,15 @@
   "required": true,
   "package": "io.github.jollyjolli.chatimprovements.mixin",
   "compatibilityLevel": "JAVA_25",
-  "client": ["ChatComponentMixin", "ChatListenerMixin"],
-  "injectors": {"defaultRequire": 1}
+  "client": [
+    "ChatComponentMixin",
+    "ChatListenerMixin",
+    "CompactChatMixin",
+    "ChatBackgroundGraphicsMixin",
+    "ChatFocusedGraphicsMixin",
+    "ChatExpandedScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

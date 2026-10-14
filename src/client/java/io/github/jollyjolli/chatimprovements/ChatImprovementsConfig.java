@@ -22,6 +22,8 @@ public final class ChatImprovementsConfig {
     public boolean showSeconds = false;
     public boolean copyButtonsEnabled = true;
     public boolean mentionHighlightsEnabled = false;
+    /** Quick Mention is offered for known signed player senders only. */
+    public boolean quickMentionEnabled = true;
     /** Uses known sender identity of signed player chat; no guesses required. */
     public boolean playerHeadsEnabled = true;
     public boolean showHatLayer = true;
@@ -29,6 +31,12 @@ public final class ChatImprovementsConfig {
     public boolean systemHeadFallback = false;
     /** GUI-only theme: 0 cyan, 1 violet, 2 amber, 3 lime. */
     public int uiAccentTheme = 0;
+    /** Dark Neon overlay and message rails; OFF restores vanilla visual presentation. */
+    public boolean chatSkinEnabled = true;
+    /** Limit the unfocused HUD, never the expanded chat editor or vanilla options. */
+    public boolean compactHudEnabled = true;
+    /** Only 3, 5, and 8 are exposed by the UI. */
+    public int compactHudLines = 5;
 
     public static ChatImprovementsConfig get() {
         return current;

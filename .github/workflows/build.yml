@@ -19,9 +19,24 @@ jobs:
           gradle-version: '9.7.1'
       - name: Build mod
         run: gradle build --stacktrace
-      - name: Upload build artifacts
+      - name: Validate release JAR and checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          mapfile -t primary_jars < <(find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' ! -name '*-dev.jar' | sort)
+          if [ "${#primary_jars[@]}" -ne 1 ]; then
+            echo "::error::Expected exactly one primary remapped mod JAR, got ${#primary_jars[@]}"
+            find build/libs -maxdepth 1 -type f -print
+            exit 1
+          fi
+          jar tf "${primary_jars[0]}" | grep -Fx 'fabric.mod.json'
+          cp "${primary_jars[0]}" dist/
+          (cd dist && sha256sum -- *.jar > SHA256SUMS.txt)
+          cat dist/SHA256SUMS.txt
+      - name: Upload installable artifact and checksum
         uses: actions/upload-artifact@v4
         with:
           name: chat-improvements-dev
-          path: build/libs/*.jar
+          path: dist/*
           if-no-files-found: error
