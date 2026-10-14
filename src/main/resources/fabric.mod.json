@@ -3,7 +3,7 @@
   "id": "chatimprovements",
   "version": "${version}",
   "name": "Chat Improvements",
-  "description": "Lightweight client-side Minecraft chat improvements with configurable timestamps.",
+  "description": "Client-only chat customization: timestamps, player heads, copy and mentions, compact HUD, and Dark Neon themes.",
   "authors": ["JollyJolli"],
   "environment": "client",
   "entrypoints": {
