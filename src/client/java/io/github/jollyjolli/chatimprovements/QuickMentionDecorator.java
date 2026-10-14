@@ -33,7 +33,7 @@ public final class QuickMentionDecorator {
         if (info == null || !info.getProfile().id().equals(sender.id())) return original;
 
         String name = info.getProfile().name();
-        if (name == null || !name.matches("[A-Za-z0-9_]{3,16}")) return original;
+        if (name == null || !ChatNameRules.validPlayerName(name)) return original;
 
         String mention = "@" + name + " ";
         Component button = Component.literal(LABEL).withStyle(style -> style
