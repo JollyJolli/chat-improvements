@@ -19,6 +19,8 @@ public final class ChatImprovementsClient implements ClientModInitializer {
     public void onInitializeClient() {
         ChatImprovementsConfig.load();
         ChatImprovementsCommands.register();
+        // Native chat backgrounds are restyled by ChatComponent/ChatScreen mixins.
+        // Do not install the old behind-chat HUD overlay (would double-render).
 
         openSettingsKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.chatimprovements.open_settings",
@@ -28,6 +30,7 @@ public final class ChatImprovementsClient implements ClientModInitializer {
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            HeadChatDiagnostics.observeConnection(client.getConnection());
             // Consume presses even if a different screen is open, so a C typed
             // into chat, signs or search boxes cannot open our menu later.
             while (openSettingsKey.consumeClick()) {

@@ -2,6 +2,7 @@ package io.github.jollyjolli.chatimprovements.mixin;
 
 import com.mojang.authlib.GameProfile;
 import io.github.jollyjolli.chatimprovements.PlayerHeadDecorator;
+import io.github.jollyjolli.chatimprovements.QuickMentionDecorator;
 import java.time.Instant;
 import net.minecraft.client.multiplayer.chat.ChatListener;
 import net.minecraft.network.chat.ChatType;
@@ -40,6 +41,7 @@ public abstract class ChatListenerMixin {
             Instant received
     ) {
         Component original = call.get(0);
-        call.set(0, PlayerHeadDecorator.decorate(original, sender));
+        Component withHead = PlayerHeadDecorator.decorate(original, sender);
+        call.set(0, QuickMentionDecorator.decorate(withHead, sender));
     }
 }
