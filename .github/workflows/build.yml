@@ -35,6 +35,7 @@ jobs:
             exit 1
           fi
           jar tf "${primary_jars[0]}" | grep -Fx 'fabric.mod.json'
+          python3 scripts/verify_release_jar.py "${primary_jars[0]}"
           cp "${primary_jars[0]}" dist/
           (cd dist && sha256sum -- *.jar > SHA256SUMS.txt)
           cat dist/SHA256SUMS.txt
