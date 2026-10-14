@@ -8,6 +8,9 @@ import net.minecraft.network.chat.Component;
 /**
  * Explicit privacy-first diagnostics. Only anonymous current-session counts
  * appear; no traffic is sent, saved or logged.
+ *
+ * On tiny GUI sizes, fewer lines are drawn so the controls never overlap.
+ * Copy Report ALWAYS contains all counters regardless of visible rows.
  */
 public final class HeadDiagnosticsScreen extends Screen {
     private int left, top, panelW, panelH;
@@ -45,13 +48,33 @@ public final class HeadDiagnosticsScreen extends Screen {
         graphics.fill(left, top, left + panelW, top + 3, UiPalette.accent());
         super.extractRenderState(graphics, mouseX, mouseY, delta);
         graphics.text(font, title, left + 13, top + 12, UiPalette.accent(), true);
+
         String[] lines = HeadChatDiagnostics.reportLines();
-        for (int i = 0; i < lines.length; i++) {
-            graphics.text(font, lines[i], left + 14, top + 36 + i * 17,
-                    UiPalette.TEXT, true);
+        // Regular panels show all six lines. Compact panels show as many as
+        // fit above the Back button; the clipboard report still contains all.
+        int visibleCount = panelH >= 215 ? lines.length
+                : panelH >= 160 ? 3
+                : panelH >= 128 ? 2 : 1;
+        int step = panelH >= 215 ? 17 : 14;
+        for (int i = 0; i < visibleCount; i++) {
+            if (font.width(lines[i]) <= panelW - 28) {
+                graphics.text(font, lines[i], left + 14, top + 36 + i * step,
+                        UiPalette.TEXT, true);
+            }
         }
-        graphics.text(font, Component.translatable("gui.chatimprovements.diagnostic_privacy"),
-                left + 14, top + 149, UiPalette.MUTED, true);
+
+        if (panelH >= 215) {
+            drawPrivacyNote(graphics, top + 149);
+        } else if (panelH >= 160) {
+            drawPrivacyNote(graphics, top + 92);
+        }
+    }
+
+    private void drawPrivacyNote(GuiGraphicsExtractor graphics, int y) {
+        Component text = Component.translatable("gui.chatimprovements.diagnostic_privacy");
+        if (font.width(text) <= panelW - 28) {
+            graphics.text(font, text, left + 14, y, UiPalette.MUTED, true);
+        }
     }
 
     @Override
