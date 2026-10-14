@@ -25,7 +25,7 @@ public final class CopyMessageDecorator {
         Component button = Component.literal("[C] ").withStyle(style -> style
                 .withColor(ChatFormatting.GRAY)
                 .withClickEvent(new ClickEvent.CopyToClipboard(plainText))
-                .withHoverEvent(new HoverEvent.ShowText(Component.literal("Copy message"))));
+                .withHoverEvent(new HoverEvent.ShowText(Component.translatable("chatimprovements.copy.tooltip"))));
 
         return Component.empty().append(button).append(original);
     }
