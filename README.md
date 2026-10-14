@@ -1,35 +1,46 @@
 # Chat Improvements
 
-**A lightweight, client-only Minecraft Fabric mod for a beautiful, practical and safer-to-use chat.**
+**A client-only Fabric 26.2 mod to make Minecraft chat easier to read and use.**
 
-## v0.4.0 Release Candidate 1 — preview for final review
+## Project status — October 2026
 
-**Status:** v0.3 is on `main`; this v0.4 candidate is on an isolated release branch and is **NOT released to Modrinth or merged into main**. The owner has tested the native beta in Minecraft and confirmed the seven primary scenarios below work. Broader compatibility review remains.
+- **Stable development baseline:** `main`, v0.3 Dark Neon Beta.
+- **Earlier native chat release candidate:** `release/v0.4.0-rc1`, PR #30. Seven initial in-game beta scenarios were reported passing, but wider QA was outstanding.
+- **Current candidate under review:** `release/v0.4.0-rc2-prep`, version `0.4.0-rc.2`. This candidate adds improvements from the v0.4 Quality Preview 2 and stricter JAR validation.
+- **Publishing status:** Not published on Modrinth and **not approved to merge into main**. Runtime QA of this exact RC2 JAR, license/AI-policy review and human sign-off are pending.
 
-### What is new in v0.4
-- **Dark Neon native chat skin** in both the small in-game notification HUD and expanded ChatScreen opened using `T`: individual dark message rows, accent rails, window/input chrome. Supports Cyan, Violet, Amber and Lime; independently toggleable in `/ci` -> STYLE.
-- **Compact/Expanded chat** — cap the unfocused HUD to 3, 5 or 8 lines, leave the vanilla focused history/scrolling available when typing. Configure in `/ci` -> LAYOUT.
-- **Quick Mention `[M]`** — available for identified player-chat profiles; click to *suggest* `@Username ` in the editor. It NEVER sends automatically; as with vanilla suggestion actions, an unsent draft may be overwritten. Does not guess system-chat identities.
-- **Anonymous Player Heads Diagnostics** — open in `/ci` -> HEADS -> Chat diagnostics to compare player-chat and system-chat counts between servers. Counters are session-only, no message text, player names or server identifiers stored/transmitted. **It does not fix heads on large public servers.**
-- Retains v0.3 timestamps, `[C]` copy, @mention indicators, authenticated heads in singleplayer/private servers, reskinnable menu and configurable C shortcut.
+## What is included in RC2
 
-### Compatibility / privacy
-- Minecraft Java **26.2**, Fabric Loader 0.19.5+, Fabric API 0.161.0+26.2, Java 25.
-- Client-side only. Do not install server plugin/mod. No persistent chat history recording, server traffic modification or signature forgery.
-- Large public servers can reroute formatted messages as system chat. **Player heads are confirmed working in singleplayer and small private servers but remain missing in tested big public servers** — see issue #8. Optional system-chat fallback is off by default and may falsely identify a player; do not treat it as verified identity.
-- Native chat-skin Mixins may conflict with other chat mods or nondefault scaling settings; reporting/click/hover, large scales and mod interoperability require further spot checks.
+- Local timestamps, configurable for 12/24 hours and optional seconds.
+- `[C]` copy-message button, optional `[@]` whole-username mention indicator, and `[M]` Quick Mention on reliably identified sender chat (*suggests* `@Username` in the editor; never auto-sends).
+- Authentic player heads when Minecraft provides a reliable player identity (tested historically on local/private servers).
+- Native Dark Neon mini-HUD message cards and expanded chat window/input frame, four accent colors and a toggle to restore vanilla visuals.
+- Optional compact in-game chat cap: 3, 5 or 8 lines; full expanded chat history remains available.
+- `/ci` configuration menu, rebindable C shortcut, and a separate anonymous diagnostics panel. Small-screen settings pagination and smaller diagnostics panels are included for testing.
+- English, Spanish, Brazilian Portuguese and German interfaces. Local config validation and more reliable writing.
+- Automated JUnit tests, translation consistency checks, metadata-verified JAR packaging and checksum generation.
 
-### In-game acceptance so far
-The owner reported all seven primary checks passing: launch without crash; new mini chat; redesigned expanded chat and input; four themes and Custom Chat HUD ON/OFF; Compact/Expanded without lost messages; Quick Mention without auto-send; original heads (supported cases), copy, timestamps and mentions still function.
+### Compatibility & privacy
 
-### Install and test this candidate
-1. Install Minecraft 26.2 with Fabric Loader and matching Fabric API.
-2. Download the `chat-improvements-dev` artifact from a successful GitHub Actions run of this **release candidate commit**, extract the non-`sources` JAR.
-3. Remove all older Chat Improvements JARs from `.minecraft/mods` before copying the new JAR in.
-4. Press `C` in-game or run `/ci` to configure the mod; press `T` for expanded chat.
-5. Follow `V04_RELEASE_CANDIDATE.md` before any stable merge. Never share unredacted server logs, private chats or session tokens.
+- Target: **Minecraft Java 26.2, Fabric Loader 0.19.5+, Fabric API 0.161.0+26.2 and Java 25**. Client-side only.
+- The mod does not require a server plugin, alter outgoing signed chat, send its own telemetry, or store a persistent chat history.
+- **Known limitation:** Some large public servers rewrite player messages as system chat, preventing trustworthy head attribution. The experimental text-based fallback is OFF by default and may infer the wrong player; never treat it as verified. See [#8](https://github.com/JollyJolli/chat-improvements/issues/8).
+- Compatibility with other chat mods, unusual GUI/chat settings and public-server formats **has not been comprehensively verified**.
 
-### Development
-Source and issues: https://github.com/JollyJolli/chat-improvements
+## Download for testing (not public release)
 
-This project is original and MIT-licensed; no copied Chat Heads assets. AI assistance has been used substantially, and public release requires human review and compliance with the chosen hosting platform's requirements.
+1. Open [GitHub Actions — Build](https://github.com/JollyJolli/chat-improvements/actions/workflows/build.yml), select a **successful run of `release/v0.4.0-rc2-prep` at the final commit**, and download `chat-improvements-dev`.
+2. Extract the archive, verify the checksum if desired, and install the primary `.jar` (not `-sources.jar`) in your Minecraft instance's `mods` folder.
+3. Remove all other Chat Improvements JARs before launching.
+4. Install matching Fabric Loader and Fabric API on Minecraft 26.2 / Java 25, then press **C** or type `/ci` in-game.
+5. Test against [RELEASE_GATE_RC2.md](RELEASE_GATE_RC2.md) and send feedback using the [issue form](https://github.com/JollyJolli/chat-improvements/issues/new/choose). Share only cropped screenshots and redacted logs.
+
+## Release preparation and source
+
+- [Exact RC2 quality gates](RELEASE_GATE_RC2.md)
+- [Draft Modrinth description, dependencies and beta notes](MODRINTH_PAGE_DRAFT.md)
+- [Human-captured screenshot checklist](SCREENSHOT_SHOT_LIST.md)
+- [Changelog](CHANGELOG.md)
+- [Contributing](CONTRIBUTING.md) · [Issue tracker](https://github.com/JollyJolli/chat-improvements/issues)
+
+Source is MIT-licensed; inspect license provenance and third-party requirements before publication. **Development and publishing drafts have received substantial generative-AI assistance.** Modrinth's current rules prohibit projects that are primarily AI-generated, require relevant disclosure and prohibit AI-generated/edited project-page images. This repository does **not** claim publication eligibility from CI or in-game testing alone.
