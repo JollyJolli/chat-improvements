@@ -7,6 +7,8 @@ on:
     paths:
       - .github/workflows/organize-issues.yml
   workflow_dispatch:
+  issues:
+    types: [opened, reopened]
 
 permissions:
   contents: read
@@ -14,6 +16,7 @@ permissions:
 
 jobs:
   organize:
+    if: github.event_name != 'issues'
     runs-on: ubuntu-latest
     steps:
       - name: Set up project labels and milestones
@@ -36,6 +39,7 @@ jobs:
               ['area: settings', '006b75', 'Settings, command and keybind UI'],
               ['status: needs-qa', 'f9d0c4', 'Needs a real client-side test'],
               ['status: deferred', 'c5def5', 'Intentionally postponed'],
+              ['status: needs-triage', 'e4e669', 'New issue awaiting milestone and scope review'],
               ['priority: high', 'e99695', 'Important before the next release']
             ];
             const existingLabels = await github.paginate(
@@ -55,7 +59,8 @@ jobs:
               ['v0.2.0 — Player Heads', 'Known-player avatar support'],
               ['v0.3.0 — Dark Neon Beta', 'Copy, mentions, settings and verified UI baseline'],
               ['v0.4.0 — Native Chat RC', 'Native compact and expanded chat, Quick Mention and release QA'],
-              ['Future — Server Compatibility', 'Deferred large-public-server head attribution research']
+              ['Future — Server Compatibility', 'Deferred large-public-server head attribution research'],
+              ['Future — General Backlog', 'Untriaged and proposed work for future release planning']
             ];
             const existingMilestones = await github.paginate(
               github.rest.issues.listMilestones, { owner, repo, state: 'all', per_page: 100 }
@@ -99,3 +104,51 @@ jobs:
               core.info(`Organized #${issue_number}: ${title} / ${labels.join(', ')}`);
             }
             core.info(`Finished ${assignments.length} issues across ${milestoneSpecs.length} milestones.`);
+
+  triage_new_issues:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign safe default milestone and triage label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            // Do not touch pull requests or reorder existing issue metadata.
+            if (context.payload.issue?.pull_request) return;
+
+            const issue = (await github.rest.issues.get({ owner, repo, issue_number })).data;
+            if (issue.milestone) {
+              core.info('Issue already assigned a milestone; existing triage left intact.');
+              return;
+            }
+
+            const title = 'Future — General Backlog';
+            const milestones = await github.paginate(github.rest.issues.listMilestones, {
+              owner, repo, state: 'all', per_page: 100
+            });
+            let number = milestones.find(m => m.title === title)?.number;
+            if (!number) {
+              const result = await github.rest.issues.createMilestone({
+                owner, repo, title,
+                description: 'Untriaged and proposed work for future release planning'
+              });
+              number = result.data.number;
+            }
+            // The issue templates set type; the triage label signals that
+            // a maintainer must choose a specific milestone and priority.
+            const labels = await github.paginate(github.rest.issues.listLabelsForRepo, {
+              owner, repo, per_page: 100
+            });
+            if (!labels.some(label => label.name === 'status: needs-triage')) {
+              await github.rest.issues.createLabel({
+                owner, repo, name: 'status: needs-triage', color: 'e4e669',
+                description: 'New issue awaiting milestone and scope review'
+              });
+            }
+            await github.rest.issues.addLabels({
+              owner, repo, issue_number, labels: ['status: needs-triage']
+            });
+            await github.rest.issues.update({ owner, repo, issue_number, milestone: number });
+            core.info(`Added default backlog milestone to issue #${issue_number}`);
