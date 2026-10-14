@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.AtomicMoveNotSupportedException;
 import net.fabricmc.loader.api.FabricLoader;
 
 /** Local preferences only. Never stores messages, player names, or server addresses. */
@@ -57,6 +59,7 @@ public final class ChatImprovementsConfig {
             ChatImprovementsConfig parsed = GSON.fromJson(json, ChatImprovementsConfig.class);
             if (parsed != null) {
                 current = parsed;
+                current.normalize();
             } else {
                 ChatImprovementsClient.LOGGER.warn("Empty config at {}; using defaults.", PATH);
             }
@@ -65,12 +68,41 @@ public final class ChatImprovementsConfig {
         }
     }
 
+    /** Ensure manually edited or future-version configs cannot select unsupported UI values. */
+    private void normalize() {
+        if (uiAccentTheme < 0 || uiAccentTheme > 3) {
+            uiAccentTheme = 0;
+        }
+        if (compactHudLines != 3 && compactHudLines != 5 && compactHudLines != 8) {
+            compactHudLines = 5;
+        }
+    }
+
     public static void save() {
+        current.normalize();
+        Path temporary = null;
         try {
             Files.createDirectories(PATH.getParent());
-            Files.writeString(PATH, GSON.toJson(current), StandardCharsets.UTF_8);
-        } catch (IOException exception) {
+            // Never truncate the user's last valid config before the replacement is ready.
+            temporary = Files.createTempFile(PATH.getParent(), "chatimprovements-", ".tmp");
+            Files.writeString(temporary, GSON.toJson(current), StandardCharsets.UTF_8);
+            try {
+                Files.move(temporary, PATH, StandardCopyOption.ATOMIC_MOVE,
+                        StandardCopyOption.REPLACE_EXISTING);
+            } catch (AtomicMoveNotSupportedException unsupported) {
+                // Older filesystems may not support atomic moves.
+                Files.move(temporary, PATH, StandardCopyOption.REPLACE_EXISTING);
+            }
+        } catch (IOException | SecurityException exception) {
             ChatImprovementsClient.LOGGER.error("Could not save {}", PATH, exception);
+        } finally {
+            if (temporary != null) {
+                try {
+                    Files.deleteIfExists(temporary);
+                } catch (IOException exception) {
+                    ChatImprovementsClient.LOGGER.warn("Could not clean temporary config {}", temporary);
+                }
+            }
         }
     }
 }
