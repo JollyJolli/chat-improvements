@@ -11,6 +11,7 @@ base {
 
 repositories {
     // Loom adds the official repositories for Minecraft and Fabric automatically.
+    mavenCentral() // JUnit test-only dependencies.
 }
 
 loom {
@@ -27,6 +28,8 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    testImplementation "org.junit.jupiter:junit-jupiter:5.13.4"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 }
 
 processResources {
@@ -44,4 +47,9 @@ java {
     sourceCompatibility = JavaVersion.VERSION_25
     targetCompatibility = JavaVersion.VERSION_25
     withSourcesJar()
+}
+
+// Run pure-Java chat matching regression tests as part of Gradle build.
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
 }
