@@ -39,5 +39,10 @@
   "chatimprovements.skin.expanded": "ERWEITERT",
   "chatimprovements.native.title": "CHAT IMPROVEMENTS",
   "chatimprovements.native.subtitle": "LIVE / ERWEITERT",
-  "chatimprovements.native.compose": "NACHRICHT SCHREIBEN  ·  ENTER ZUM SENDEN"
+  "chatimprovements.native.compose": "NACHRICHT SCHREIBEN  ·  ENTER ZUM SENDEN",
+  "chatimprovements.copy.tooltip": "Nachricht kopieren",
+  "gui.chatimprovements.color.cyan": "TÜRKIS",
+  "gui.chatimprovements.color.violet": "VIOLETT",
+  "gui.chatimprovements.color.amber": "BERNSTEIN",
+  "gui.chatimprovements.color.lime": "LIMETTE"
 }
