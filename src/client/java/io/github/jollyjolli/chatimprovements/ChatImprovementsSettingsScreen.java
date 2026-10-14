@@ -90,14 +90,17 @@ public final class ChatImprovementsSettingsScreen extends Screen {
     }
 
     private void buildColors() {
-        String[] names = {"CYAN", "VIOLET", "AMBER", "LIME"};
+        String[] names = {"gui.chatimprovements.color.cyan",
+                "gui.chatimprovements.color.violet", "gui.chatimprovements.color.amber",
+                "gui.chatimprovements.color.lime"};
         int gap = 10, half = (w - 48) / 2;
         for (int i = 0; i < 4; i++) {
             final int selected = i;
             int bx = x + 19 + (i % 2) * (half + gap);
             int by = y + (compact ? 65 : 82) + (i / 2) * (compact ? 25 : 32);
-            String name = (UiPalette.index() == i ? "* " : "") + names[i];
-            addRenderableWidget(Button.builder(Component.literal(name)
+            Component name = Component.translatable(names[i]);
+            if (UiPalette.index() == i) name = Component.literal("* ").append(name);
+            addRenderableWidget(Button.builder(name
                     .withStyle(s -> s.withColor(UiPalette.accent(selected))), button -> {
                         ChatImprovementsConfig.get().uiAccentTheme = selected;
                         ChatImprovementsConfig.save();
