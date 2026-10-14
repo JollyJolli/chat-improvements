@@ -28,7 +28,7 @@ A lightweight **client-side Minecraft Java 26.2 Fabric mod** that makes the in-g
 4. Remove all older Chat Improvements JARs before launching, otherwise Fabric may complain about duplicate mod IDs.
 5. In-game, press **C** or type `/ci`. For bugs, follow [SUPPORT.md](SUPPORT.md).
 
-**Experimental v0.4:** If you specifically intend to test it, use the appropriate PR's exact commit and its own test checklist: [RC1](V03_PREVIEW_TEST.md) is **not** the testing checklist for the newer quality branch; use [v0.4 quality preview checklist](https://github.com/JollyJolli/chat-improvements/blob/integration/v0.4-quality-preview/V04_QUALITY_PREVIEW_TEST.md) instead. Do not install two versions simultaneously.
+**Experimental v0.4:** If you specifically intend to test it, use the appropriate PR's exact commit and its own test checklist: [RC1 checklist](https://github.com/JollyJolli/chat-improvements/blob/release/v0.4.0-rc1/V04_RELEASE_CANDIDATE.md) and [quality-preview checklist](https://github.com/JollyJolli/chat-improvements/blob/integration/v0.4-quality-preview/V04_QUALITY_PREVIEW_TEST.md) are separate; choose the one matching your artifact. Do not install two versions simultaneously.
 
 ## Developing and reporting issues
 
