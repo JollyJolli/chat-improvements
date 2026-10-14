@@ -39,5 +39,10 @@
   "chatimprovements.skin.expanded": "EXPANDED",
   "chatimprovements.native.title": "CHAT IMPROVEMENTS",
   "chatimprovements.native.subtitle": "LIVE / EXPANDED",
-  "chatimprovements.native.compose": "WRITE A MESSAGE  ·  ENTER TO SEND"
+  "chatimprovements.native.compose": "WRITE A MESSAGE  ·  ENTER TO SEND",
+  "chatimprovements.copy.tooltip": "Copy message",
+  "gui.chatimprovements.color.cyan": "CYAN",
+  "gui.chatimprovements.color.violet": "VIOLET",
+  "gui.chatimprovements.color.amber": "AMBER",
+  "gui.chatimprovements.color.lime": "LIME"
 }
