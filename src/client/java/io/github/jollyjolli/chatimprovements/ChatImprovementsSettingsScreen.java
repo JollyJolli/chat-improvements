@@ -10,14 +10,18 @@ import net.minecraft.network.chat.Component;
 /** Dark Neon dashboard with responsive layout and four locally saved accent themes. */
 public final class ChatImprovementsSettingsScreen extends Screen {
     private final int page;
+    private final int contentPage;
     private int x, y, w, h, rowStep;
     private boolean compact, resetArmed;
 
-    public ChatImprovementsSettingsScreen() { this(0); }
+    public ChatImprovementsSettingsScreen() { this(0, 0); }
 
-    private ChatImprovementsSettingsScreen(int page) {
+    private ChatImprovementsSettingsScreen(int page) { this(page, 0); }
+
+    private ChatImprovementsSettingsScreen(int page, int contentPage) {
         super(Component.translatable("gui.chatimprovements.title"));
         this.page = page;
+        this.contentPage = contentPage;
     }
 
     @Override
@@ -37,7 +41,8 @@ public final class ChatImprovementsSettingsScreen extends Screen {
         tab("gui.chatimprovements.tab_style", 2, inner + 2 * (tabW + gap), tabW);
         tab("gui.chatimprovements.tab_layout", 3, inner + 3 * (tabW + gap), w - 22 - 3 * (tabW + gap));
 
-        if (page == 3) buildLayout();
+        if (compact && h < 225) buildPagedCompact();
+        else if (page == 3) buildLayout();
         else if (page == 2) buildColors();
         else {
             int[] ids = page == 1 ? new int[] {5, 6, 7} : new int[] {0, 1, 2, 3, 4, 8};
@@ -55,7 +60,7 @@ public final class ChatImprovementsSettingsScreen extends Screen {
             }
         }
 
-        if (page == 1) {
+        if (page == 1 && !(compact && h < 225)) {
             addRenderableWidget(Button.builder(Component.translatable(
                     "gui.chatimprovements.diagnostics"), button -> {
                 if (this.minecraft != null)
@@ -87,6 +92,88 @@ public final class ChatImprovementsSettingsScreen extends Screen {
                     if (destination != page && minecraft != null)
                         minecraft.setScreenAndShow(new ChatImprovementsSettingsScreen(destination));
                 }).bounds(tx, y + 36, tw, 20).build());
+    }
+
+    /**
+     * A compact window cannot safely display six one-column controls and the
+     * footer at once. Paginate instead of creating overlapping hitboxes.
+     * The regular/full-height settings layout remains unchanged.
+     */
+    private void buildPagedCompact() {
+        int[] ids = switch (page) {
+            case 0 -> new int[] {0, 1, 2, 3, 4, 8};
+            case 1 -> new int[] {5, 6, 7, 9};
+            case 2 -> new int[] {100, 101, 102, 103, 104};
+            default -> new int[] {201, 202};
+        };
+        // Reserve space for the tab bar, notes, Reset and Done controls.
+        int visible = Math.max(1, Math.min(3, (h - 120) / 22));
+        int pages = (ids.length + visible - 1) / visible;
+        int safePage = Math.floorMod(contentPage, pages);
+        int start = safePage * visible;
+
+        for (int index = start; index < Math.min(ids.length, start + visible); index++) {
+            int id = ids[index];
+            int by = y + 65 + (index - start) * 22;
+            addRenderableWidget(Button.builder(compactLabel(id), button -> {
+                if (id == 9) {
+                    if (minecraft != null) minecraft.setScreenAndShow(new HeadDiagnosticsScreen());
+                    return;
+                }
+                if (id >= 100 && id <= 103) {
+                    ChatImprovementsConfig.get().uiAccentTheme = id - 100;
+                    ChatImprovementsConfig.save();
+                } else if (id == 104) {
+                    var cfg = ChatImprovementsConfig.get();
+                    cfg.chatSkinEnabled = !cfg.chatSkinEnabled;
+                    ChatImprovementsConfig.save();
+                } else if (id == 201) {
+                    var cfg = ChatImprovementsConfig.get();
+                    cfg.compactHudEnabled = !cfg.compactHudEnabled;
+                    ChatImprovementsConfig.save();
+                } else if (id == 202) {
+                    var cfg = ChatImprovementsConfig.get();
+                    cfg.compactHudLines = cfg.compactHudLines == 3 ? 5
+                            : cfg.compactHudLines == 5 ? 8 : 3;
+                    ChatImprovementsConfig.save();
+                } else {
+                    flip(id);
+                }
+                refresh();
+            }).bounds(x + 19, by, Math.max(30, w - 38), 18).build());
+        }
+        if (pages > 1) {
+            Component pager = Component.translatable("gui.chatimprovements.next_page",
+                    safePage + 1, pages);
+            addRenderableWidget(Button.builder(pager, button -> {
+                if (minecraft != null) {
+                    minecraft.setScreenAndShow(
+                            new ChatImprovementsSettingsScreen(page, (safePage + 1) % pages));
+                }
+            }).bounds(x + w - 71, y + 10, 60, 19).build());
+        }
+    }
+
+    private Component compactLabel(int id) {
+        var cfg = ChatImprovementsConfig.get();
+        if (id <= 8) return label(id);
+        if (id == 9) return Component.translatable("gui.chatimprovements.diagnostics");
+        if (id >= 100 && id <= 103) {
+            String[] colorKeys = {
+                "gui.chatimprovements.color.cyan", "gui.chatimprovements.color.violet",
+                "gui.chatimprovements.color.amber", "gui.chatimprovements.color.lime"
+            };
+            var name = Component.translatable(colorKeys[id - 100]);
+            if (UiPalette.index() == id - 100) name = Component.literal("* ").append(name);
+            return name.withStyle(style -> style.withColor(UiPalette.accent(id - 100)));
+        }
+        if (id == 104) return Component.translatable("gui.chatimprovements.chat_skin",
+                Component.translatable(cfg.chatSkinEnabled
+                        ? "gui.chatimprovements.on" : "gui.chatimprovements.off"));
+        if (id == 201) return Component.translatable("gui.chatimprovements.compact",
+                Component.translatable(cfg.compactHudEnabled
+                        ? "gui.chatimprovements.on" : "gui.chatimprovements.off"));
+        return Component.translatable("gui.chatimprovements.compact_lines", cfg.compactHudLines);
     }
 
     private void buildColors() {
@@ -195,7 +282,7 @@ public final class ChatImprovementsSettingsScreen extends Screen {
     }
 
     private void refresh() {
-        if (minecraft != null) minecraft.setScreenAndShow(new ChatImprovementsSettingsScreen(page));
+        if (minecraft != null) minecraft.setScreenAndShow(new ChatImprovementsSettingsScreen(page, contentPage));
     }
 
     @Override
