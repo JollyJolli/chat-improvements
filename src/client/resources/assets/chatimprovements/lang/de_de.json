@@ -44,5 +44,6 @@
   "gui.chatimprovements.color.cyan": "TÜRKIS",
   "gui.chatimprovements.color.violet": "VIOLETT",
   "gui.chatimprovements.color.amber": "BERNSTEIN",
-  "gui.chatimprovements.color.lime": "LIMETTE"
+  "gui.chatimprovements.color.lime": "LIMETTE",
+  "gui.chatimprovements.next_page": "MEHR %s/%s"
 }
