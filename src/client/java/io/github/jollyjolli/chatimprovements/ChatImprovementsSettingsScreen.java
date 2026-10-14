@@ -98,7 +98,7 @@ public final class ChatImprovementsSettingsScreen extends Screen {
             final int selected = i;
             int bx = x + 19 + (i % 2) * (half + gap);
             int by = y + (compact ? 65 : 82) + (i / 2) * (compact ? 25 : 32);
-            Component name = Component.translatable(names[i]);
+            var name = Component.translatable(names[i]);
             if (UiPalette.index() == i) name = Component.literal("* ").append(name);
             addRenderableWidget(Button.builder(name
                     .withStyle(s -> s.withColor(UiPalette.accent(selected))), button -> {
