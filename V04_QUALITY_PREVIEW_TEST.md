@@ -1,11 +1,11 @@
-# Chat Improvements — Quality Preview 1
+# Chat Improvements — Quality Preview 2
 
 **Test build only. NOT stable, NOT Modrinth, NOT the v0.4 release candidate.**
 
 - Branch: `integration/v0.4-quality-preview`
-- Version: `0.4.0-quality-preview.1`
+- Version: `0.4.0-quality-preview.2`
 - Based on: `release/v0.4.0-rc1`; `main` remains on v0.3.
-- Includes PR #35 (diagnostics compact layout), #39 (safe config writes), #40 (PT-BR + German and internationalized tooltips/colors), #42 (JUnit regression tests).
+- Includes PR #35 (diagnostics compact layout), #39 (safe config writes), #40 (PT-BR + German and internationalized tooltips/colors), #42 (JUnit regression tests), and #48 (settings pagination on short screens).
 - The foundational native chat and beta 7/7 tests come from v0.4 RC1. **These new combined changes have not been manually tested in Minecraft.**
 
 ## Install only this preview
@@ -19,6 +19,7 @@
 ## QA cases
 
 - [ ] Launch without crash, press C and `/ci`, check all tabs and four color themes.
+- [ ] On a short Minecraft window, each settings tab should show a localized MORE page button to reach **all** options without overlapping Reset/Done; verify all pages and tab switching in four languages.
 - [ ] Enable Spanish, Brazilian Portuguese, German, then English via Minecraft language settings. Check text, copy hover tooltip, accent color choices, HUD overlays, privacy warnings and truncation on a narrow GUI.
 - [ ] Switch to compact window / larger GUI scale. Open HEADS > Chat diagnostics; text and Back/Copy/Reset controls should not overlap. Copy report must retain all six counters even if fewer lines are visible.
 - [ ] Change old v0.3 preferences, upgrade with the backed-up config file, restart and confirm the values survive.
