@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest a client-only improvement to Minecraft chat
+title: "feat: "
+labels: ["type: feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Chat Improvements is client-only. Proposals must not alter signed messages, outgoing chat, player trust markers, or require server plugins.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      placeholder: "What problem should this solve for players?"
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Proposed behavior
+      placeholder: "What should happen in the small HUD and when chat is expanded?"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria and edge cases
+      placeholder: "Include private/public servers, click/hover links, accessibility or GUI scaling where relevant."
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Privacy and compatibility considerations
+      placeholder: "Consider system messages, unsigned sender identities, other chat mods and local-only configuration."
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Project constraints
+      options:
+        - label: "This can work client-side without modifying signed or outgoing chat."
+          required: true

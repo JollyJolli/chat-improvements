@@ -1,0 +1,67 @@
+name: Bug report
+description: Report a reproducible problem in Chat Improvements
+title: "bug: "
+labels: ["type: bug", "status: needs-qa"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug. Please do not paste full public-server chat logs, private messages, access tokens, account IDs or unrelated player names.
+  - type: input
+    id: version
+    attributes:
+      label: Chat Improvements version and branch
+      placeholder: "0.4.0-rc.1, release/v0.4.0-rc1"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Minecraft / Fabric Loader / Fabric API / Java versions
+      placeholder: "Minecraft 26.2; Loader 0.19.5; Fabric API 0.161.0+26.2; Java 25"
+    validations:
+      required: true
+  - type: dropdown
+    id: context
+    attributes:
+      label: Where does it happen?
+      options:
+        - Singleplayer
+        - Small/private server
+        - Large/public server
+        - All environments
+        - Unknown
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. ...\n2. ...\n3. ..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: setup
+    attributes:
+      label: Relevant options and other installed mods
+      description: "Include GUI scale, chat width/scale, and related mods only if applicable."
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted evidence (optional)
+      description: "Share cropped screenshots or only the relevant redacted crash stack trace. Do not upload entire chat histories or login/session information."
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before submitting
+      options:
+        - label: "I checked existing issues for duplicates."
+          required: true
+        - label: "I removed private message content and sensitive identifiers from the report."
+          required: true
